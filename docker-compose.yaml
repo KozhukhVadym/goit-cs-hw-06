@@ -1,0 +1,27 @@
+services:
+  web:
+    build: .
+    container_name: web_app
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    depends_on:
+      - mongodb
+    volumes:
+      - .:/app
+    restart: always
+
+  mongodb:
+    image: mongo:6.0
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    env_file:
+      - .env
+    restart: always
+
+volumes:
+  mongo_data:
